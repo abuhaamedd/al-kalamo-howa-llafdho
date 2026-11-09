@@ -1,0 +1,893 @@
+inde<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>الكلام هو اللفظ المركب المفيد</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&display=swap');
+
+    * { box-sizing: border-box; }
+
+    :root {
+      --navy: #172554;
+      --blue: #2563eb;
+      --sky: #38bdf8;
+      --teal: #0f766e;
+      --green: #16a34a;
+      --orange: #f97316;
+      --red: #dc2626;
+      --purple: #7c3aed;
+      --cream: #fffbeb;
+      --ink: #172033;
+      --muted: #64748b;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: "Tajawal", Arial, sans-serif;
+      color: var(--ink);
+      background:
+        radial-gradient(circle at 10% 10%, rgba(56,189,248,.24), transparent 30%),
+        radial-gradient(circle at 90% 90%, rgba(249,115,22,.20), transparent 28%),
+        linear-gradient(135deg, #eff6ff, #fef3c7 48%, #f0fdfa);
+      overflow-x: hidden;
+    }
+
+    .app {
+      width: min(1050px, 100%);
+      margin: auto;
+      padding: 18px;
+    }
+
+    .topbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 14px;
+      padding: 14px 18px;
+      border: 1px solid rgba(255,255,255,.8);
+      border-radius: 22px;
+      background: rgba(255,255,255,.78);
+      box-shadow: 0 12px 35px rgba(30,64,175,.10);
+      backdrop-filter: blur(12px);
+      margin-bottom: 14px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      min-width: 0;
+    }
+
+    .logo {
+      width: 50px;
+      height: 50px;
+      flex: 0 0 auto;
+      display: grid;
+      place-items: center;
+      border-radius: 16px;
+      color: white;
+      font-size: 27px;
+      background: linear-gradient(135deg, var(--blue), var(--purple));
+      box-shadow: 0 8px 18px rgba(37,99,235,.26);
+    }
+
+    h1, h2, h3, p { margin-top: 0; }
+    h1 { margin-bottom: 2px; font-size: clamp(20px, 4vw, 30px); }
+    .subtitle { margin: 0; color: var(--muted); font-weight: 700; font-size: 14px; }
+
+    .stats {
+      display: flex;
+      align-items: center;
+      gap: 9px;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+    }
+
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 9px 12px;
+      border-radius: 999px;
+      color: var(--navy);
+      background: #eff6ff;
+      font-weight: 800;
+      font-size: 14px;
+      white-space: nowrap;
+    }
+
+    .pill.score { color: #9a3412; background: #ffedd5; }
+    .pill.streak { color: #9f1239; background: #ffe4e6; }
+
+    .screen {
+      display: none;
+      animation: rise .45s ease both;
+    }
+
+    .screen.active { display: block; }
+
+    @keyframes rise {
+      from { opacity: 0; transform: translateY(15px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .hero {
+      position: relative;
+      overflow: hidden;
+      padding: clamp(28px, 7vw, 72px);
+      min-height: 560px;
+      display: grid;
+      place-items: center;
+      text-align: center;
+      border-radius: 30px;
+      color: white;
+      background:
+        linear-gradient(rgba(23,37,84,.82), rgba(23,37,84,.82)),
+        linear-gradient(135deg, #1d4ed8, #7c3aed 55%, #0f766e);
+      box-shadow: 0 24px 65px rgba(30,64,175,.22);
+    }
+
+    .hero::before,
+    .hero::after {
+      content: "";
+      position: absolute;
+      border-radius: 50%;
+      background: rgba(255,255,255,.08);
+    }
+
+    .hero::before {
+      width: 300px;
+      height: 300px;
+      top: -120px;
+      right: -50px;
+    }
+
+    .hero::after {
+      width: 220px;
+      height: 220px;
+      bottom: -100px;
+      left: -50px;
+    }
+
+    .hero-content { position: relative; z-index: 1; max-width: 760px; }
+
+    .tag {
+      display: inline-block;
+      padding: 8px 15px;
+      margin-bottom: 17px;
+      border: 1px solid rgba(255,255,255,.30);
+      border-radius: 999px;
+      background: rgba(255,255,255,.12);
+      font-weight: 800;
+    }
+
+    .hero h2 {
+      font-size: clamp(34px, 8vw, 66px);
+      line-height: 1.18;
+      margin-bottom: 18px;
+    }
+
+    .hero h2 span {
+      display: block;
+      color: #fde68a;
+      font-size: .54em;
+      margin-top: 13px;
+    }
+
+    .hero p {
+      font-size: clamp(16px, 2.4vw, 21px);
+      line-height: 1.8;
+      color: #e0e7ff;
+      margin-bottom: 28px;
+    }
+
+    .lesson-chip {
+      display: flex;
+      justify-content: center;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-bottom: 28px;
+    }
+
+    .lesson-chip span {
+      padding: 7px 11px;
+      border-radius: 10px;
+      background: rgba(255,255,255,.12);
+      font-weight: 700;
+    }
+
+    .btn {
+      border: 0;
+      border-radius: 15px;
+      padding: 13px 22px;
+      color: white;
+      background: linear-gradient(135deg, var(--orange), #ef4444);
+      font-family: inherit;
+      font-size: 17px;
+      font-weight: 800;
+      cursor: pointer;
+      box-shadow: 0 9px 0 #c2410c, 0 15px 25px rgba(234,88,12,.25);
+      transition: transform .15s, box-shadow .15s, opacity .15s;
+    }
+
+    .btn:hover { transform: translateY(-2px); }
+    .btn:active { transform: translateY(5px); box-shadow: 0 4px 0 #c2410c; }
+    .btn:disabled { cursor: not-allowed; opacity: .55; transform: none; }
+    .btn.secondary {
+      color: var(--navy);
+      background: white;
+      box-shadow: 0 8px 0 #cbd5e1, 0 15px 25px rgba(15,23,42,.10);
+    }
+
+    .game-layout {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 290px;
+      gap: 16px;
+    }
+
+    .card {
+      border: 1px solid rgba(255,255,255,.9);
+      border-radius: 24px;
+      background: rgba(255,255,255,.87);
+      box-shadow: 0 15px 40px rgba(30,64,175,.10);
+      backdrop-filter: blur(10px);
+    }
+
+    .question-card { padding: clamp(18px, 4vw, 30px); }
+
+    .question-meta {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      margin-bottom: 16px;
+    }
+
+    .type-badge {
+      padding: 7px 12px;
+      border-radius: 999px;
+      color: #1e40af;
+      background: #dbeafe;
+      font-weight: 800;
+      font-size: 14px;
+    }
+
+    .question-count { color: var(--muted); font-weight: 800; }
+
+    .progress {
+      height: 10px;
+      overflow: hidden;
+      margin-bottom: 26px;
+      border-radius: 999px;
+      background: #e2e8f0;
+    }
+
+    .progress > div {
+      width: 0;
+      height: 100%;
+      border-radius: inherit;
+      background: linear-gradient(90deg, var(--sky), var(--blue), var(--purple));
+      transition: width .4s ease;
+    }
+
+    .question-title {
+      font-size: clamp(21px, 4vw, 30px);
+      line-height: 1.5;
+      margin-bottom: 22px;
+    }
+
+    .question-context {
+      margin-bottom: 22px;
+      padding: 16px 18px;
+      border-right: 5px solid var(--orange);
+      border-radius: 14px;
+      background: #fff7ed;
+      font-size: 19px;
+      line-height: 1.8;
+      font-weight: 700;
+    }
+
+    .options {
+      display: grid;
+      gap: 11px;
+    }
+
+    .option {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 14px 16px;
+      border: 2px solid #e2e8f0;
+      border-radius: 15px;
+      color: var(--ink);
+      background: white;
+      font-family: inherit;
+      text-align: right;
+      font-size: 17px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: .18s ease;
+    }
+
+    .option:hover:not(:disabled) {
+      border-color: var(--sky);
+      background: #f0f9ff;
+      transform: translateX(-3px);
+    }
+
+    .option .letter {
+      width: 34px;
+      height: 34px;
+      flex: 0 0 auto;
+      display: grid;
+      place-items: center;
+      border-radius: 10px;
+      color: #1e40af;
+      background: #dbeafe;
+    }
+
+    .option.correct {
+      border-color: var(--green);
+      background: #dcfce7;
+      animation: pulse .35s ease;
+    }
+
+    .option.correct .letter { background: var(--green); color: white; }
+
+    .option.wrong {
+      border-color: var(--red);
+      background: #fee2e2;
+      animation: shake .35s ease;
+    }
+
+    .option.wrong .letter { background: var(--red); color: white; }
+
+    .feedback {
+      min-height: 31px;
+      margin: 16px 0 0;
+      font-weight: 800;
+      line-height: 1.6;
+    }
+
+    .feedback.good { color: #15803d; }
+    .feedback.bad { color: #b91c1c; }
+
+    .next-wrap {
+      display: flex;
+      justify-content: flex-end;
+      margin-top: 14px;
+    }
+
+    .side {
+      padding: 19px;
+      align-self: start;
+    }
+
+    .side h3 {
+      margin-bottom: 15px;
+      font-size: 18px;
+    }
+
+    .rule-box {
+      padding: 14px;
+      border-radius: 15px;
+      color: #134e4a;
+      background: #ccfbf1;
+      line-height: 1.8;
+      font-weight: 700;
+      margin-bottom: 14px;
+    }
+
+    .tip {
+      padding: 12px;
+      border-radius: 13px;
+      background: #fef3c7;
+      color: #854d0e;
+      font-size: 14px;
+      line-height: 1.7;
+      margin-bottom: 14px;
+    }
+
+    .mini-stat {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 10px 0;
+      border-bottom: 1px dashed #cbd5e1;
+      font-weight: 700;
+    }
+
+    .mini-stat:last-child { border-bottom: 0; }
+
+    .result {
+      max-width: 780px;
+      margin: 30px auto;
+      padding: clamp(25px, 6vw, 50px);
+      text-align: center;
+    }
+
+    .result-icon {
+      width: 92px;
+      height: 92px;
+      display: grid;
+      place-items: center;
+      margin: 0 auto 15px;
+      border-radius: 28px;
+      font-size: 46px;
+      background: #fef3c7;
+      animation: bounce 1.3s infinite;
+    }
+
+    @keyframes pulse {
+      50% { transform: scale(1.025); }
+    }
+
+    @keyframes shake {
+      25% { transform: translateX(5px); }
+      75% { transform: translateX(-5px); }
+    }
+
+    @keyframes bounce {
+      50% { transform: translateY(-8px); }
+    }
+
+    .result h2 { font-size: clamp(28px, 6vw, 42px); margin-bottom: 8px; }
+    .result-score { color: #1d4ed8; font-size: 25px; font-weight: 800; margin: 18px 0; }
+    .result-message { color: var(--muted); line-height: 1.8; margin-bottom: 22px; }
+    .result-actions { display: flex; justify-content: center; gap: 10px; flex-wrap: wrap; }
+
+    .confetti {
+      position: fixed;
+      z-index: 50;
+      width: 10px;
+      height: 15px;
+      pointer-events: none;
+      animation: fall 2.2s linear forwards;
+    }
+
+    @keyframes fall {
+      to { transform: translate3d(var(--drift), 105vh, 0) rotate(720deg); opacity: .1; }
+    }
+
+    @media (max-width: 780px) {
+      .app { padding: 10px; }
+      .topbar { align-items: flex-start; }
+      .stats { gap: 5px; }
+      .pill { padding: 7px 9px; font-size: 12px; }
+      .game-layout { grid-template-columns: 1fr; }
+      .side { display: none; }
+      .hero { min-height: 520px; }
+    }
+
+    @media (max-width: 480px) {
+      .topbar { flex-direction: column; }
+      .stats { width: 100%; justify-content: center; }
+      .logo { width: 43px; height: 43px; }
+      h1 { font-size: 19px; }
+      .question-meta { align-items: flex-start; }
+      .type-badge { font-size: 12px; }
+      .option { font-size: 15px; padding: 12px; }
+    }
+  </style>
+</head>
+<body>
+  <main class="app">
+    <header class="topbar">
+      <div class="brand">
+        <div class="logo">ك</div>
+        <div>
+          <h1>مغامرة الكلام</h1>
+          <p class="subtitle">الكلام هو اللفظ المركب المفيد</p>
+        </div>
+      </div>
+      <div class="stats" id="stats" hidden>
+        <span class="pill">⭐ النقاط: <b id="score">0</b></span>
+        <span class="pill streak">🔥 سلسلة: <b id="streak">0</b></span>
+        <span class="pill">💎 <b id="diamonds">0</b></span>
+      </div>
+    </header>
+
+    <section id="startScreen" class="screen active">
+      <div class="hero">
+        <div class="hero-content">
+          <span class="tag">درس النحو • نص قرائي قصير وفاعل</span>
+          <h2>اكتشف سرّ الكلام<span>اللفظ المركب المفيد</span></h2>
+          <p>
+            اقرأ النص، أجب عن أسئلة الفهم، ثم رتّب الكلمات لتكوّن جملًا صحيحة
+            وطبّق القاعدة في نشاط ممتع.
+          </p>
+          <div class="lesson-chip">
+            <span>📖 ٥ أسئلة فهم</span>
+            <span>🧩 نشاط ترتيب</span>
+            <span>🏆 نقاط ومكافآت</span>
+          </div>
+          <button class="btn" id="startBtn">ابدأ المغامرة 🚀</button>
+        </div>
+      </div>
+    </section>
+
+    <section id="gameScreen" class="screen">
+      <div class="game-layout">
+        <article class="card question-card">
+          <div class="question-meta">
+            <span class="type-badge" id="typeBadge">فهم النص</span>
+            <span class="question-count" id="questionCount">السؤال 1 من 8</span>
+          </div>
+
+          <div class="progress"><div id="progressBar"></div></div>
+
+          <div id="questionArea"></div>
+
+          <div class="feedback" id="feedback" aria-live="polite"></div>
+          <div class="next-wrap">
+            <button class="btn" id="nextBtn" disabled>التالي ←</button>
+          </div>
+        </article>
+
+        <aside class="card side">
+          <h3>🎯 تذكّر القاعدة</h3>
+          <div class="rule-box">
+            الكلام هو <b>اللفظ المركب المفيد</b>؛ أي الكلمة التي تدل على معنى مفيد.
+          </div>
+          <div class="tip">
+            💡 <b>تلميح:</b> الكلمات المنفردة مثل «الطالب» مفيدة، أما «في» و«إلى» في الغالب فهما كلمات وظيفة.
+          </div>
+          <h3>📊 رحلتك</h3>
+          <div class="mini-stat"><span>الإجابات الصحيحة</span><b id="correctCount">0</b></div>
+          <div class="mini-stat"><span>المحاولات</span><b id="attemptCount">0</b></div>
+          <div class="mini-stat"><span>النقاط</span><b id="sideScore">0</b></div>
+        </aside>
+      </div>
+    </section>
+
+    <section id="endScreen" class="screen">
+      <div class="card result">
+        <div class="result-icon">🏆</div>
+        <h2 id="resultTitle">أحسنت! أتممت المغامرة</h2>
+        <div class="result-score" id="finalScore"></div>
+        <p class="result-message" id="resultMessage"></p>
+        <div class="result-actions">
+          <button class="btn" id="replayBtn">العب من جديد 🔄</button>
+          <button class="btn secondary" id="homeBtn">العودة للبداية</button>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    const text = `في صباحٍ جميل، خرج محمد إلى الحديقة، فابتسمت الشمسُ، وأزهرت الأزهار، وسمع محمدُ عصافيرَ تُغنّي فوق الأشجار. قال محمد: «ما أجمل الطبيعة!»`;
+
+    const questions = [
+      {
+        type: "فهم النص",
+        title: "إلى أين خرج محمد في الصباح الجميل؟",
+        options: ["إلى المدرسة", "إلى الحديقة", "إلى السوق", "إلى البيت"],
+        correct: 1,
+        explain: "نصّ النص بوضوح: «خرج محمد إلى الحديقة»."
+      },
+      {
+        type: "فهم النص",
+        title: "ماذا فعلت الشمس عندما خرج محمد؟",
+        options: ["أزهرت", "ابتسمت", "غنّت", "تحدّثت"],
+        correct: 1,
+        explain: "الجملة تقول: «ابتسمت الشمسُ»."
+      },
+      {
+        type: "فهم النص",
+        title: "بماذا差的 معنى النص؟ اختر الكلمة المناسبة.",
+        options: ["الفجر", "العصافير", "الطريق", "الماء"],
+        correct: 1,
+        explain: "سمع محمدُ عصافيرَ تُغنّي فوق الأشجار."
+      },
+      {
+        type: "فهم النص",
+        title: "ما الجملة التي عبرّ بها محمد عن إعجابه بالطبيعة؟",
+        options: ["الطبيعة جميلة!", "ما أجمل الطبيعة!", "ذهب محمد إلى الحديقة.", "أزهرت الأزهار."],
+        correct: 1,
+        explain: "قال محمد: «ما أجمل الطبيعة!»."
+      },
+      {
+        type: "تركيب الكلام",
+        title: "رتّب الكلمات لتكوّن جملة سليمة مفيدة:",
+        parts: ["في", "الصباح", "خرج", "محمد"],
+        answer: ["خرج", "محمد", "في", "الصباح"],
+        explain: "الجملة: «خرج محمد في الصباح»، وهي كلام لأنه لفظ مركب مفيد."
+      },
+      {
+        type: "تركيب الكلام",
+        title: "رتّب الكلمات لتكوّن جملة سليمة مفيدة:",
+        parts: ["ابتسمت", "الشمس", "الجميل", "في"],
+        answer: ["ابتسمت", "الشمس", "في", "الصباح", "الجميل"],
+        explain: "الجملة: «ابتسمت الشمس في الصباح الجميل»."
+      },
+      {
+        type: "تمييز الكلام",
+        title: "أيّ选项 يعبّر عن معنى مفيد أكثر؟",
+        options: ["في", "من", "محمد", "إلى"],
+        correct: 2,
+        explain: "«محمد» كلمة تدل على معنى مفيد، أما «في» و«من» و«إلى» فكلمات وظيفة في هذا السياق."
+      },
+      {
+        type: "تطبيق القاعدة",
+        title: "ما الحكم على العبارة: «الطالبُ مجتهدٌ»؟",
+        options: [
+          "ليست كلامًا لأنها كلمة واحدة",
+          "كلام؛ لأنها لفظ مركب مفيد",
+          "ليست كلامًا لأن فيها تنوينًا",
+          "كلام؛ لأن عدد حروفها كبير"
+        ],
+        correct: 1,
+        explain: "نعم، «الطالبُ مجتهدٌ» كلام لأنه لفظ مركب يدل على معنى مفيد."
+      }
+    ];
+
+    let current = 0;
+    let score = 0;
+    let streak = 0;
+    let diamonds = 0;
+    let correct = 0;
+    let attempts = 0;
+    let answered = false;
+    let audioCtx = null;
+
+    const $ = id => document.getElementById(id);
+
+    function showScreen(id) {
+      document.querySelectorAll(".screen").forEach(s => s.classList.remove("active"));
+      $(id).classList.add("active");
+      $("stats").hidden = id !== "gameScreen";
+    }
+
+    function initAudio() {
+      try {
+        audioCtx ||= new (window.AudioContext || window.webkitAudioContext)();
+        if (audioCtx.state === "suspended") audioCtx.resume();
+      } catch (e) {}
+    }
+
+    function tone(freq = 500, duration = .08, type = "sine", volume = .05) {
+      if (!audioCtx) return;
+      const osc = audioCtx.createOscillator();
+      const gain = audioCtx.createGain();
+      osc.type = type;
+      osc.frequency.value = freq;
+      gain.gain.setValueAtTime(volume, audioCtx.currentTime);
+      gain.gain.exponentialRampToValueAtTime(.001, audioCtx.currentTime + duration);
+      osc.connect(gain);
+      gain.connect(audioCtx.destination);
+      osc.start();
+      osc.stop(audioCtx.currentTime + duration);
+    }
+
+    function successSound() {
+      tone(520, .09, "sine");
+      setTimeout(() => tone(680, .12, "sine"), 90);
+      setTimeout(() => tone(850, .16, "sine"), 190);
+    }
+
+    function errorSound() {
+      tone(190, .18, "sawtooth", .035);
+    }
+
+    function updateStats() {
+      $("score").textContent = score;
+      $("streak").textContent = streak;
+      $("diamonds").textContent = diamonds;
+      $("correctCount").textContent = correct;
+      $("attemptCount").textContent = attempts;
+      $("sideScore").textContent = score;
+    }
+
+    function startGame() {
+      initAudio();
+      current = 0;
+      score = 0;
+      streak = 0;
+      diamonds = 0;
+      correct = 0;
+      attempts = 0;
+      updateStats();
+      showScreen("gameScreen");
+      renderQuestion();
+    }
+
+    function renderQuestion() {
+      const q = questions[current];
+      answered = false;
+      $("typeBadge").textContent = q.type;
+      $("questionCount").textContent = `السؤال ${current + 1} من ${questions.length}`;
+      $("progressBar").style.width = `${(current / questions.length) * 100}%`;
+      $("feedback").textContent = "";
+      $("feedback").className = "feedback";
+      $("nextBtn").disabled = true;
+      $("nextBtn").textContent = current === questions.length - 1 ? "عرض النتيجة 🏁" : "التالي ←";
+
+      if (q.parts) {
+        renderOrdering(q);
+      } else {
+        renderMultipleChoice(q);
+      }
+    }
+
+    function renderMultipleChoice(q) {
+      const letters = ["أ", "ب", "ج", "د"];
+      $("questionArea").innerHTML = `
+        <h2 class="question-title">${q.title}</h2>
+        <div class="question-context">${text}</div>
+        <div class="options">
+          ${q.options.map((option, i) => `
+            <button class="option" data-index="${i}">
+              <span class="letter">${letters[i]}</span>
+              <span>${option}</span>
+            </button>
+          `).join("")}
+        </div>
+      `;
+
+      document.querySelectorAll(".option").forEach(btn => {
+        btn.addEventListener("click", () => chooseOption(btn, q));
+      });
+    }
+
+    function chooseOption(btn, q) {
+      if (answered) return;
+      answered = true;
+      attempts++;
+      const selected = Number(btn.dataset.index);
+      const all = [...document.querySelectorAll(".option")];
+
+      all.forEach(b => b.disabled = true);
+
+      if (selected === q.correct) {
+        btn.classList.add("correct");
+        correct++;
+        streak++;
+        const points = 10 + Math.min(streak - 1, 5);
+        score += points;
+        if (streak % 3 === 0) diamonds++;
+        $("feedback").className = "feedback good";
+        $("feedback").textContent = `✅ أحسنت! +${points} نقاط. ${q.explain}`;
+        successSound();
+        if (streak > 1 && streak % 3 === 0) {
+          $("feedback").textContent += " 💎中获得你 Diamonds!";
+        }
+      } else {
+        btn.classList.add("wrong");
+        const right = all[q.correct];
+        right.classList.add("correct");
+        streak = 0;
+        $("feedback").className = "feedback bad";
+        $("feedback").textContent = `❌ الإجابة ليست صحيحة. الصحيح: ${right.querySelector("span:last-child").textContent}. ${q.explain}`;
+        errorSound();
+      }
+
+      updateStats();
+      $("nextBtn").disabled = false;
+    }
+
+    function renderOrdering(q) {
+      $("questionArea").innerHTML = `
+        <h2 class="question-title">${q.title}</h2>
+        <div class="question-context">انقر على الكلمات بالترتيب الصحيح لتكوين جملة مفيدة.</div>
+        <div id="wordBank" class="options"></div>
+        <h3 style="margin:18px 0 9px">الجملة التي اخترتها</h3>
+        <div id="sentence" class="question-context" style="min-height:70px; border-color:var(--blue)"></div>
+        <button class="btn secondary" id="checkOrder" style="margin-top:12px">تحقق من الترتيب ✓</button>
+      `;
+
+      const shuffled = [...q.parts].sort(() => Math.random() - .5);
+      $("wordBank").innerHTML = shuffled.map((word, i) => `
+        <button class="option" data-word="${word}" data-id="${i}">
+          <span class="letter">${i + 1}</span><span>${word}</span>
+        </button>
+      `).join("");
+
+      const chosen = [];
+      const sentence = $("sentence");
+
+      document.querySelectorAll("#wordBank .option").forEach(btn => {
+        btn.addEventListener("click", () => {
+          if (answered || btn.disabled) return;
+          btn.disabled = true;
+          btn.style.opacity = ".35";
+          chosen.push(btn.dataset.word);
+          sentence.textContent = chosen.join(" ");
+        });
+      });
+
+      $("checkOrder").addEventListener("click", () => {
+        if (answered) return;
+        if (chosen.length !== q.answer.length) {
+          $("feedback").className = "feedback bad";
+          $("feedback").textContent = "اختر جميع الكلمات أولًا ثم تحقق.";
+          errorSound();
+          return;
+        }
+
+        answered = true;
+        attempts++;
+        const isCorrect = chosen.join("|") === q.answer.join("|");
+
+        if (isCorrect) {
+          correct++;
+          streak++;
+          const points = 15 + Math.min(streak - 1, 5);
+          score += points;
+          if (streak % 3 === 0) diamonds++;
+          $("feedback").className = "feedback good";
+          $("feedback").textContent = `✅ ترتيب ممتاز! +${points} نقاط. ${q.explain}`;
+          sentence.style.borderColor = "var(--green)";
+          sentence.style.background = "#dcfce7";
+          successSound();
+        } else {
+          streak = 0;
+          $("feedback").className = "feedback bad";
+          $("feedback").textContent = `❌ الترتيب غير صحيح. الجملة الصحيحة: «${q.answer.join(" ")}». ${q.explain}`;
+          sentence.style.borderColor = "var(--red)";
+          sentence.style.background = "#fee2e2";
+          errorSound();
+        }
+
+        $("checkOrder").disabled = true;
+        $("nextBtn").disabled = false;
+        updateStats();
+      });
+    }
+
+    function nextQuestion() {
+      if (current < questions.length - 1) {
+        current++;
+        renderQuestion();
+      } else {
+        finishGame();
+      }
+    }
+
+    function finishGame() {
+      $("progressBar").style.width = "100%";
+      const percent = Math.round((correct / questions.length) * 100);
+      $("finalScore").textContent = `نتيجتك: ${correct} من ${questions.length} (${percent}%) — ${score} نقطة`;
+
+      if (percent >= 87) {
+        $("resultTitle").textContent = "🏆 ممتاز! أنت بطل الكلام";
+        $("resultMessage").textContent = "أتقنت فهم النص وتطبيق قاعدة: الكلام هو اللفظ المركب المفيد. أداء رائع!";
+      } else if (percent >= 62) {
+        $("resultTitle").textContent = "🌟 عمل جيد جدًا!";
+        $("resultMessage").textContent = "فهمك للنص جيد. راجع ترتيب الجمل، ثم حاول مرة أخرى لتحصل على نتيجة أعلى.";
+      } else {
+        $("resultTitle").textContent = "💪 بداية موفقة!";
+        $("resultMessage").textContent = "أعد قراءة النص، وتذكّر أن الكلام لفظ مركب مفيد، ثم جرّب السؤالان مرة أخرى.";
+      }
+
+      showScreen("endScreen");
+      successSound();
+      if (percent >= 62) createConfetti();
+    }
+
+    function createConfetti() {
+      const colors = ["#2563eb", "#f97316", "#16a34a", "#7c3aed", "#38bdf8"];
+      for (let i = 0; i < 55; i++) {
+        const piece = document.createElement("div");
+        piece.className = "confetti";
+        piece.style.left = Math.random() * 100 + "vw";
+        piece.style.top = "-30px";
+        piece.style.background = colors[i % colors.length];
+        piece.style.setProperty("--drift", (Math.random() * 300 - 150) + "px");
+        piece.style.animationDelay = Math.random() * .8 + "s";
+        document.body.appendChild(piece);
+        setTimeout(() => piece.remove(), 3200);
+      }
+    }
+
+    $("startBtn").addEventListener("click", startGame);
+    $("nextBtn").addEventListener("click", nextQuestion);
+    $("replayBtn").addEventListener("click", startGame);
+    $("homeBtn").addEventListener("click", () => showScreen("startScreen"));
+  </script>
+</body>
+</html>x
